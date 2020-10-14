@@ -1,11 +1,12 @@
 let image = {}, label = {}, percentage = {};
 
-const HISTORY_SIZE = 10;
+const HISTORY_SIZE = 10,
+    THRESHOLD = 0.8;
 
 let classifier;
 
 function preload() {
-    classifier = ml5.imageClassifier("path/to/model/model.json", () => console.log("Model Loaded!!!"))
+    classifier = ml5.imageClassifier("https://teachablemachine.withgoogle.com/models/B0aSt3PAf/model.json", () => console.log("Model Loaded!!!"))
 }
 
 function setup() {
@@ -50,15 +51,19 @@ function setup() {
             }
             update(0);
         });
-
     });
 }
 
 const update = (index) => {
     if (index >= image.src.length || image.src.length === 0) return;
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 3 && i < label.data[0].length; i++) {
         label.divs[i].innerText = label.data[index][i];
         percentage.divs[i].innerText = (percentage.data[index][i] * 100).toFixed(2) + "%";
+        if (i === 0 && percentage.data[index][i] > THRESHOLD){
+            percentage.divs[i].style.color = "green";
+        } else {
+            percentage.divs[i].style.color = "black";
+        }
     }
     image.div.src = image.src[index];
 };

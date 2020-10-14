@@ -4,11 +4,19 @@
     <meta charset="UTF-8">
     <title>Image Classifier</title>
 </head>
+<style>
+    #img {
+        height: 300px;
+    }
+</style>
 <body>
 <link rel="stylesheet" type="text/css" href="style.css">
 <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.js"></script>
 <script src="sketch.js"></script>
+
+<img id="img">
+
 <table id="results">
     <tr>
         <th>Prediction</th>
@@ -38,6 +46,5 @@
         <th>Confidence</th>
     </tr>
 </table>
-<img id="img">
 </body>
 </html>
