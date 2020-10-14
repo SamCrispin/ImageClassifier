@@ -2,7 +2,11 @@ let image = {}, label = {}, percentage = {};
 
 const HISTORY_SIZE = 10;
 
-const classifier = ml5.imageClassifier("MobileNet", () => console.log("Model Loaded!!!"));
+let classifier;
+
+function preload() {
+    classifier = ml5.imageClassifier("path/to/model/model.json", () => console.log("Model Loaded!!!"))
+}
 
 function setup() {
     noCanvas();
@@ -29,7 +33,7 @@ function setup() {
                 if (image.src.length === 0) image.div.src = "";
                 alert("Error in processing file, try again");
             } else {
-                for (let i = 0; i < 3; i++) {
+                for (let i = 0; i < 3 && i < results.length; i++) {
                     tempLabel.push(results[i].label);
                     tempPercentage.push(results[i].confidence);
                 }
